@@ -902,7 +902,17 @@ footer {
   .about-img-wrap { aspect-ratio: 16/9; max-height: 360px; }
 
   .contact-cards { grid-template-columns: 1fr; }
-  .hero-slash { display: none; }
+  /* Mobile: convert vertical slash into a horizontal gold bar at hero bottom */
+  .hero-slash {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 4px;
+    transform: skewX(0);
+    opacity: 1;
+  }
 
   .f-row { grid-template-columns: 1fr; }
 }
@@ -929,6 +939,193 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .hero-tag-dot { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── MODALS ── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,13,13,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: var(--white);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.35s var(--ease);
+  overflow: hidden;
+}
+.modal-backdrop.open .modal {
+  transform: translateY(0) scale(1);
+}
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.modal-header-left {}
+.modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-dim);
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.modal-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.modal-close {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--off);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--trans);
+  font-size: 16px;
+  color: var(--muted);
+}
+.modal-close:hover { background: var(--off2); color: var(--ink); }
+.modal-body {
+  overflow-y: auto;
+  padding: 28px 32px 32px;
+  flex: 1;
+}
+.modal-body::-webkit-scrollbar { width: 4px; }
+.modal-body::-webkit-scrollbar-track { background: var(--off); border-radius: 4px; }
+.modal-body::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+
+.modal-section {
+  margin-bottom: 24px;
+}
+.modal-section:last-child { margin-bottom: 0; }
+.modal-section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.modal-section-title::before {
+  content: '';
+  width: 3px;
+  height: 16px;
+  background: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.modal-section p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.modal-section p:last-child { margin-bottom: 0; }
+.refund-table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-top: 12px;
+}
+.refund-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.refund-row:last-child { border-bottom: none; }
+.refund-row:nth-child(even) { background: var(--off); }
+.refund-time {
+  font-size: 13px;
+  color: var(--ink2);
+  font-weight: 400;
+}
+.refund-pct {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.refund-pct.no { color: var(--muted); }
+
+.modal-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold);
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold-dim);
+  padding-bottom: 1px;
+  transition: border-color var(--trans);
+}
+.modal-contact-link:hover { border-color: var(--gold); }
+
+/* Footer legal links */
+.footer-legal {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.footer-legal a {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color var(--trans);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+}
+.footer-legal a:hover { color: var(--gold); border-color: var(--gold); }
+
+@media (max-width: 600px) {
+  .modal-header { padding: 22px 20px 16px; }
+  .modal-body { padding: 20px 20px 24px; }
+  .modal-title { font-size: 18px; }
 }
 </style>
 </head>
@@ -1218,6 +1415,10 @@ footer {
         <div class="footer-logo">JAP<span>.</span></div>
         <div class="footer-sub">Executive Private Services · Raleigh, NC</div>
       </div>
+      <div class="footer-legal">
+        <a href="#" onclick="openModal('terms'); return false;">Terms & Conditions</a>
+        <a href="#" onclick="openModal('privacy'); return false;">Privacy Policy</a>
+      </div>
       <div class="footer-copy">© 2025 JAP Executive Private Services. All rights reserved.</div>
     </div>
   </div>
@@ -1231,6 +1432,90 @@ footer {
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
     </svg>
   </a>
+</div>
+
+<!-- TERMS MODAL -->
+<div class="modal-backdrop" id="modal-terms" role="dialog" aria-modal="true" aria-label="Terms and Conditions">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-badge">📄 Legal</div>
+        <div class="modal-title">Terms & Conditions</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('terms')" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Agreement to Terms</div>
+        <p>Welcome to <strong>MISTER DRIVER</strong>. By using our service, you agree to the following terms and conditions. Your use of the website and services constitutes your acceptance of these terms.</p>
+        <p>We reserve the right to update these terms at any time without notice. You are responsible for reviewing the terms periodically to stay informed of any changes.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Limitation of Liability</div>
+        <p>Our services are provided as-is, and we are not responsible for any damages arising from the use of our services, including but not limited to lost reservations, delayed pickups, or cancellations.</p>
+        <p>By booking a ride, you confirm that all the information you provided is accurate and that you are authorized to make the reservation.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Cancellation & Refund Policy</div>
+        <p>At <strong>MISTER DRIVER</strong>, we understand that plans can change. We offer a flexible cancellation policy with refunds based on how far in advance the reservation is canceled.</p>
+        <div class="refund-table">
+          <div class="refund-row">
+            <span class="refund-time">More than 72 hours in advance</span>
+            <span class="refund-pct">100% refund</span>
+          </div>
+          <div class="refund-row">
+            <span class="refund-time">Between 48 and 72 hours in advance</span>
+            <span class="refund-pct">80% refund</span>
+          </div>
+          <div class="refund-row">
+            <span class="refund-time">Between 24 and 48 hours in advance</span>
+            <span class="refund-pct">50% refund</span>
+          </div>
+          <div class="refund-row">
+            <span class="refund-time">Less than 24 hours or no-show</span>
+            <span class="refund-pct no">No refund</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Questions?</div>
+        <p>If you have any questions or concerns, please contact us at <a href="mailto:misterdrivertransport@gmail.com" class="modal-contact-link">misterdrivertransport@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div class="modal-backdrop" id="modal-privacy" role="dialog" aria-modal="true" aria-label="Privacy Policy">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-badge">🔒 Privacy</div>
+        <div class="modal-title">Privacy Policy</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('privacy')" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Our Commitment to You</div>
+        <p>Welcome to <strong>MISTER DRIVER</strong>. By using our service, you agree to the following terms and conditions. Your use of the website and services constitutes your acceptance of these terms.</p>
+        <p>We reserve the right to update these terms at any time without notice. You are responsible for reviewing the terms periodically to stay informed of any changes.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Information We Collect</div>
+        <p>We collect personal information, including your name, contact information, and booking details, to provide you with our transport services.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">How We Use Your Data</div>
+        <p>We do not share your personal data with third parties except as necessary to fulfill your reservation or comply with legal obligations.</p>
+        <p>By using our website and services, you consent to our collection and use of your information as described in this policy.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Contact Us About Privacy</div>
+        <p>If you have any concerns about your privacy, please contact us at <a href="mailto:prueba@gmail.com" class="modal-contact-link">prueba@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1264,6 +1549,28 @@ footer {
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Modals
+  function openModal(id) {
+    const el = document.getElementById('modal-' + id);
+    el.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    el.addEventListener('click', function backdropClick(e) {
+      if (e.target === el) { closeModal(id); el.removeEventListener('click', backdropClick); }
+    });
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      ['terms','privacy'].forEach(id => {
+        const el = document.getElementById('modal-' + id);
+        if (el.classList.contains('open')) closeModal(id);
+      });
+    }
+  });
 </script>
 </body>
 </html>
