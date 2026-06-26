@@ -74,13 +74,14 @@ nav.scrolled .nav-inner { padding-top: 16px; padding-bottom: 16px; }
   line-height: 1;
 }
 .nav-logo-main {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+  display: flex;
+  align-items: center;
 }
-.nav-logo-main span { color: var(--gold); }
+.nav-logo-img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
 .nav-logo-sub {
   font-family: 'DM Sans', sans-serif;
   font-size: 9px;
@@ -1145,8 +1146,10 @@ footer {
 <nav id="nav">
   <div class="nav-inner">
     <a href="#inicio" class="nav-logo">
-      <span class="nav-logo-main">JAP<span>.</span></span>
-      <span class="nav-logo-sub">Executive Private & Services</span>
+      <span class="nav-logo-main">
+        <img src="imagenes/favicon1.ico" alt="JAP Executive Private Services" class="nav-logo-img"/>
+      </span>
+      <span class="nav-logo-sub">Executive Private Services</span>
     </a>
     <ul class="nav-links">
       <li><a href="#inicio">Home</a></li>
@@ -1412,7 +1415,7 @@ footer {
   <div class="container">
     <div class="footer-inner">
       <div>
-        <div class="footer-logo">JAP<span>.</span></div>
+        <div class="footer-logo"><img src="imagenes/favicon1.ico" alt="JAP" style="height:40px; width:auto; display:block; filter:brightness(0) invert(1);"/></div>
         <div class="footer-sub">Executive Private Services · Raleigh, NC</div>
       </div>
       <div class="footer-legal">
